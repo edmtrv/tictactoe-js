@@ -5,8 +5,16 @@
 }
 
 .board {
-  background: #bada55;
+  display: flex;
+  flex-wrap: wrap;
   width: 300px;
   height: 300px;
   margin: 50px auto;
+}
+
+.cell {
+  background: #924646;
+  width: 100px;
+  height: 100px;
+  border: 1px solid #222;
 }
