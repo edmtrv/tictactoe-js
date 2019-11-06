@@ -4,6 +4,12 @@
   padding: 0;
 }
 
+html,
+body {
+  font-size: 10px;
+  color: rgb(37, 37, 37);
+}
+
 .container {
   width: 100vw;
   height: 100vh;
@@ -24,7 +30,7 @@
 }
 
 .cell {
-  background: #924646;
+  background: #f3f3f3;
   width: 100px;
   height: 100px;
   border: 1px solid #222;
