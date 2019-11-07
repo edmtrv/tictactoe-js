@@ -25,4 +25,13 @@ const Controller = ((Data, UI) => {
   function startGame() {
     console.log('GAME START');
   }
+
+  return {
+    init() {
+      startGame();
+    }
+  };
 })(DataModule, UIModule);
+
+
+Controller.init();
