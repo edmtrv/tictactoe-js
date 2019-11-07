@@ -23,9 +23,6 @@ const Controller = ((Data, UI) => {
 
   const startGame = () => {
     console.log('GAME START');
-    // 1. Get player's names
-    // 2. Create players, and add them to the game data structure
-    // 3.
   }
 
   return {
