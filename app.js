@@ -1,8 +1,8 @@
-const DataModule = (() => {
+const DataModule = (function () {
 
 })();
 
-const UIModule = (() => {
+const UIModule = (function () {
   const DOMstrings = {
     startButton: '.btn',
     playerOneName: '.player-1-field',
@@ -16,7 +16,7 @@ const UIModule = (() => {
   };
 })();
 
-const Controller = ((Data, UI) => {
+const Controller = (function (Data, UI) {
   function setupEventListeners() {
     const DOM = UI.getDOMstrings();
 
