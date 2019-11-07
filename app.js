@@ -4,7 +4,7 @@ const DataModule = (() => {
 
 const UIModule = (() => {
   const DOMstrings = {
-    gameButton: '.btn',
+    startButton: '.btn',
     playerOneName: '.player-1-field',
     playerTwoName: '.player-2-field'
   };
@@ -17,5 +17,12 @@ const UIModule = (() => {
 })();
 
 const Controller = ((Data, UI) => {
+  const DOM = UI.getDOMstrings();
 
+  document.querySelector(DOM.startButton)
+    .addEventListener('click', startGame);
+
+  function startGame() {
+    console.log('GAME START');
+  }
 })(DataModule, UIModule);
