@@ -1,9 +1,22 @@
 const DataModule = (() => {
-  const Player = (name, sign) => {
+  const Player = (name, symbol) => {
     const getName = () => name;
-    const getSign = () => sign;
+    const getSymbol = () => symbol;
 
-    return (getName, getSign);
+    return {getName, getSymbol};
+  };
+
+  const Board = () => {
+    const board = [null, null, null, null, null, null, null, null, null];
+    const markCell = (pos, symbol) => {
+      board[pos] = symbol;
+    };
+
+    const isEmptyCell = (pos) => {
+      return !board[pos];
+    };
+
+    return {markCell, isEmptyCell};
   };
 })();
 
