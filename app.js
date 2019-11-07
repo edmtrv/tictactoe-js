@@ -17,10 +17,12 @@ const UIModule = (() => {
 })();
 
 const Controller = ((Data, UI) => {
-  const DOM = UI.getDOMstrings();
+  function setupEventListeners() {
+    const DOM = UI.getDOMstrings();
 
-  document.querySelector(DOM.startButton)
-    .addEventListener('click', startGame);
+    document.querySelector(DOM.startButton)
+      .addEventListener('click', startGame);
+  }
 
   function startGame() {
     console.log('GAME START');
@@ -28,7 +30,7 @@ const Controller = ((Data, UI) => {
 
   return {
     init() {
-      startGame();
+      setupEventListeners();
     }
   };
 })(DataModule, UIModule);
