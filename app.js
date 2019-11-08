@@ -18,6 +18,10 @@ const DataModule = (() => {
 
     return {markCell, isEmptyCell};
   };
+
+  const Game = (board, ...players) => {
+
+  };
 })();
 
 const UIModule = (() => {
