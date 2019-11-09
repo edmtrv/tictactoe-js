@@ -13,13 +13,15 @@ const DataModule = (() => {
       [0, 3, 6], [1, 4, 7], [2, 5, 8], [2, 4, 6]
     ];
 
-    const positionsBySymbol = () => {
-      return ['x', 'o'].map(symbol => {
-        return grid
-                .map((mark, pos) => ({[pos]: mark}))
-                .filter(cell => Object.values(cell)[0] == symbol)
-                .map(cell => +Object.keys(cell)[0]);
+    const positionsBySymbol = (symbol) => {
+      const positions = [];
+
+      grid.forEach((mark, pos) => {
+        if (mark === symbol)
+        positions.push(pos)
       });
+
+      return positions;
     };
 
     const isFull = () => {
