@@ -7,31 +7,50 @@ const DataModule = (() => {
   };
 
   const Board = () => {
-    const board = [null, null, null, null, null, null, null, null, null];
+    const grid = [null, null, null, null, null, null, null, null, null];
     const winCombos = [
       [0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 4, 8],
       [0, 3, 6], [1, 4, 7], [2, 5, 8], [2, 4, 6]
     ];
 
+    const positionsBySymbol = () => {
+      return ['x', 'o'].map(symbol => {
+        return grid
+                .map((mark, pos) => ({[pos]: mark}))
+                .filter(cell => Object.values(cell)[0] == symbol)
+                .map(cell => +Object.keys(cell)[0]);
+      });
+    };
+
     const isFull = () => {
-      !board.some(pos => pos === null);
+      !grid.some(pos => pos === null);
+    };
+
+    const isWon = () => {
+
     };
 
     const markCell = (pos, symbol) => {
-      board[pos] = symbol;
+      grid[pos] = symbol;
     };
 
     const isEmptyCell = (pos) => {
-      return !board[pos];
+      return !grid[pos];
     };
 
-    return {markCell, isEmptyCell};
+    return {markCell, isEmptyCell, isFull, isWon};
   };
 
   const Game = (board, ...players) => {
 
   };
+
+  return {Board};
 })();
+
+const board = DataModule.Board();
+console.log(board.isWon());
+return;
 
 const UIModule = (() => {
   const DOMstrings = {
