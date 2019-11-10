@@ -55,6 +55,8 @@ const DataModule = (() => {
     const switchActivePlayer = () => players.reverse();
     const getActivePlayer = () => players[0];
 
+    const isGameOver = () => board.isWon() || board.isFull();
+
     const turn = (position) => {
       const currentPlayer = getActivePlayer();
 
@@ -69,7 +71,7 @@ const DataModule = (() => {
       return position;
     };
 
-    return {turn};
+    return {turn, isGameOver};
   };
 
   return {Player, Board, Game};
