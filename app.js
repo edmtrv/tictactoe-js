@@ -52,15 +52,12 @@ const DataModule = (() => {
   };
 
   const Game = (board, ...players) => {
+    const switchActivePlayer = () => players.reverse();
 
   };
 
-  return {Board};
 })();
 
-const board = DataModule.Board();
-console.log(board.isWon('x'));
-return;
 
 const UIModule = (() => {
   const DOMstrings = {
