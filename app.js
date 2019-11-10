@@ -57,6 +57,8 @@ const DataModule = (() => {
 
     const isGameOver = () => board.isWon() || board.isFull();
 
+    const getWinner = () => board.isWon() && players[0];
+
     const turn = (position) => {
       const currentPlayer = getActivePlayer();
 
@@ -71,7 +73,7 @@ const DataModule = (() => {
       return position;
     };
 
-    return {turn, isGameOver};
+    return {turn, isGameOver, getWinner};
   };
 
   return {Player, Board, Game};
