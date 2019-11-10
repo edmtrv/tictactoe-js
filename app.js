@@ -53,9 +53,26 @@ const DataModule = (() => {
 
   const Game = (board, ...players) => {
     const switchActivePlayer = () => players.reverse();
+    const getActivePlayer = () => players[0];
 
+    const turn = (position) => {
+      const currentPlayer = getActivePlayer();
+
+      if (!board.isEmptyCell(position)) {
+        return;
+      }
+
+      board.markCell(position, currentPlayer.getSymbol());
+
+      switchActivePlayer();
+
+      return position;
+    };
+
+    return {turn};
   };
 
+  return {Player, Board, Game};
 })();
 
 
