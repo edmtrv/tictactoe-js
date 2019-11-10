@@ -17,8 +17,9 @@ const DataModule = (() => {
       const positions = [];
 
       grid.forEach((mark, pos) => {
-        if (mark === symbol)
-        positions.push(pos)
+        if (mark === symbol) {
+          positions.push(pos)
+        }
       });
 
       return positions;
@@ -28,8 +29,15 @@ const DataModule = (() => {
       !grid.some(pos => pos === null);
     };
 
-    const isWon = () => {
+    const isWon = (currentSymbol) => {
+      const positions = positionsBySymbol(currentSymbol);
 
+      for (let combo of winCombos) {
+        if (combo.every(c => positions.includes(c))) {
+          return true;
+        }
+      }
+      return false;
     };
 
     const markCell = (pos, symbol) => {
@@ -51,7 +59,7 @@ const DataModule = (() => {
 })();
 
 const board = DataModule.Board();
-console.log(board.isWon());
+console.log(board.isWon('x'));
 return;
 
 const UIModule = (() => {
