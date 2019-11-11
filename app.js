@@ -80,12 +80,18 @@ const UIModule = (() => {
     startButton: '.btn',
     playerXName: '#player-x-name',
     playerOName: '#player-o-name',
-    board: '.board'
+    board: '.board',
+    cell(n) { return `[data-cell="${n}"]`},
+  };
+
+  const markPosition = (pos, symbol) => {
+    const cell = document.querySelector(DOMstrings.cell(pos));
+    cell.textContent = symbol;
   };
 
   const getDOMstrings = () => DOMstrings;
 
-  return {getDOMstrings};
+  return {getDOMstrings, markPosition};
 })();
 
 const Controller = ((Data, UI) => {
@@ -107,7 +113,7 @@ const Controller = ((Data, UI) => {
       const markedPosition = game.turn(clickedCell);
 
       if (markedPosition !== undefined) {
-        console.log(activePlayer.getSymbol());
+        UI.markPosition(markedPosition, activePlayer.getSymbol());
       }
 
       if (game.isGameOver(activePlayer.getSymbol())) {
