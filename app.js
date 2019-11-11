@@ -99,14 +99,16 @@ const UIModule = (() => {
 const Controller = ((Data, UI) => {
   const DOM = UI.getDOMstrings();
 
-  const startGame = () => {
-    console.log('GAME START');
+  const setupGame = () => {
+    const p1Name = document.querySelector('.player-1-name').value;
+    const p2Name = document.querySelector('.player-2-name').value;
+    const game = Data.Game(Data.Board(), );
   }
 
   return {
     init() {
       document.querySelector(DOM.startButton)
-        .addEventListener('click', startGame);
+        .addEventListener('click', setupGame);
     }
   };
 })(DataModule, UIModule);
