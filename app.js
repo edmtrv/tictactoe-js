@@ -14,8 +14,6 @@ const DataModule = (() => {
       [0, 3, 6], [1, 4, 7], [2, 5, 8], [2, 4, 6]
     ];
 
-    const getGrid = () => grid;
-
     const positionsBySymbol = (symbol) => {
       const positions = [];
       grid.forEach((mark, pos) => {
@@ -46,11 +44,10 @@ const DataModule = (() => {
 
     const isEmptyCell = (pos) => !grid[pos];
 
-    return {markCell, isEmptyCell, isFull, isWon, getGrid};
+    return {markCell, isEmptyCell, isFull, isWon};
   };
 
   const Game = (board, ...players) => {
-    const getBoard = () => board.getGrid();
     const switchActivePlayer = () => players.reverse();
 
     const getActivePlayer = () => players[0];
@@ -71,7 +68,7 @@ const DataModule = (() => {
       return position;
     };
 
-    return {turn, isGameOver, getWinner, getActivePlayer, getBoard};
+    return {turn, isGameOver, getWinner, getActivePlayer};
   };
 
   return {Player, Board, Game};
@@ -112,7 +109,7 @@ const Controller = ((Data, UI) => {
       if (markedPosition !== undefined) {
         console.log(activePlayer.getSymbol());
       }
-      console.log(game.getBoard());
+
       if (game.isGameOver(activePlayer.getSymbol())) {
         console.log('game over');
       }
