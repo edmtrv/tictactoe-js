@@ -62,10 +62,11 @@ const DataModule = (() => {
 
     const turn = (position) => {
       if (!board.isEmptyCell(position)) return;
+      const symbol = getActivePlayer().getSymbol();
 
-      board.markCell(position, getActivePlayer().getSymbol());
+      board.markCell(position, symbol);
 
-      return position;
+      return {position, symbol};
     };
 
     return {turn, isGameOver, getWinner, getActivePlayer, switchActivePlayer};
@@ -87,14 +88,14 @@ const UIModule = (() => {
 
   const getDOMstrings = () => DOMstrings;
 
-  const markPosition = (pos, symbol) => {
-    const cell = document.querySelector(DOMstrings.cell(pos));
+  const markPosition = ({position, symbol}) => {
+    const cell = document.querySelector(DOMstrings.cell(position));
     cell.textContent = symbol;
   };
 
   const showResult = (player = null) => {
     const resultNode = document.querySelector(DOMstrings.result);
-    console.log(player);
+
     if (player) {
       resultNode.innerHTML = `
         <p class="result-msg">
@@ -121,15 +122,13 @@ const Controller = ((Data, UI) => {
 
     document.querySelector(DOM.board).addEventListener('click', e => {
       const clickedCell = +e.target.dataset.cell;
-      const activePlayer = game.getActivePlayer();
-      const activeSymbol = activePlayer.getSymbol();
 
       if (clickedCell === undefined) return;
 
       const markedPosition = game.turn(clickedCell);
 
       if (markedPosition !== undefined) {
-        UI.markPosition(markedPosition, activeSymbol);
+        UI.markPosition(markedPosition);
       }
 
       if (game.isGameOver()) {
