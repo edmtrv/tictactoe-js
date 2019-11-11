@@ -101,13 +101,14 @@ const Controller = ((Data, UI) => {
   const setupGame = () => {
     const pXName = document.querySelector(DOM.playerXName).value;
     const pOName = document.querySelector(DOM.playerOName).value;
-    const playerX = Player(pXName, 'x');
-    const playerO = Player(pOName, 'o');
+    const playerX = Data.Player(pXName, 'x');
+    const playerO = Data.Player(pOName, 'o');
     const game = Data.Game(Data.Board(), playerX, playerO);
 
-    DOM.board.addEventListener('click', e => {
-      console.log(e);
-    });
+    document.querySelector(DOM.board)
+      .addEventListener('click', e => {
+        console.log(e);
+      });
   }
 
   return {
