@@ -57,7 +57,10 @@ const DataModule = (() => {
 
     const getActivePlayer = () => players[0];
 
-    const isGameOver = () => board.isWon() || board.isFull();
+    const isGameOver = () => {
+      const symbol = getActivePlayer().getSymbol();
+      board.isWon(symbol) || board.isFull()
+    };
 
     const getWinner = () => board.isWon() && players[0];
 
@@ -75,7 +78,7 @@ const DataModule = (() => {
       return position;
     };
 
-    return {turn, isGameOver, getWinner};
+    return {turn, isGameOver, getWinner, getActivePlayer};
   };
 
   return {Player, Board, Game};
@@ -105,10 +108,19 @@ const Controller = ((Data, UI) => {
     const playerO = Data.Player(pOName, 'o');
     const game = Data.Game(Data.Board(), playerX, playerO);
 
-    document.querySelector(DOM.board)
-      .addEventListener('click', e => {
-        console.log(e);
-      });
+    document.querySelector(DOM.board).addEventListener('click', e => {
+      const clickedCell = +e.target.dataset.cell;
+
+      if (clickedCell === undefined) return;
+
+      const markedPosition = game.turn(clickedCell);
+
+      if (markedPosition !== undefined) {
+        console.log(game.getActivePlayer().getSymbol());
+      }
+
+      console.log(game.isGameOver());
+    });
   }
 
   return {
