@@ -85,8 +85,9 @@ const DataModule = (() => {
 const UIModule = (() => {
   const DOMstrings = {
     startButton: '.btn',
-    playerXName: '.player-x-name',
-    playerOName: '.player-o-name'
+    playerXName: '#player-x-name',
+    playerOName: '#player-o-name',
+    board: '.board'
   };
 
   const getDOMstrings = () => DOMstrings;
@@ -98,13 +99,15 @@ const Controller = ((Data, UI) => {
   const DOM = UI.getDOMstrings();
 
   const setupGame = () => {
-    const pXName = document.getElementById(DOM.playerXName).value;
-    const pOName = document.getElementById(DOM.playerOName).value;
+    const pXName = document.querySelector(DOM.playerXName).value;
+    const pOName = document.querySelector(DOM.playerOName).value;
     const playerX = Player(pXName, 'x');
     const playerO = Player(pOName, 'o');
     const game = Data.Game(Data.Board(), playerX, playerO);
 
-
+    DOM.board.addEventListener('click', e => {
+      console.log(e);
+    });
   }
 
   return {
