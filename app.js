@@ -100,8 +100,8 @@ const Controller = ((Data, UI) => {
   const DOM = UI.getDOMstrings();
 
   const setupGame = () => {
-    const p1Name = document.querySelector('.player-1-name').value;
-    const p2Name = document.querySelector('.player-2-name').value;
+    const p1Name = document.getElementById('player-x-name').value;
+    const p2Name = document.getElementById('player-o-name').value;
     const game = Data.Game(Data.Board(), );
   }
 
