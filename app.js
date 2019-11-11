@@ -1,6 +1,7 @@
 const DataModule = (() => {
   const Player = (name, symbol) => {
     const getName = () => name;
+
     const getSymbol = () => symbol;
 
     return {getName, getSymbol};
@@ -53,6 +54,7 @@ const DataModule = (() => {
 
   const Game = (board, ...players) => {
     const switchActivePlayer = () => players.reverse();
+
     const getActivePlayer = () => players[0];
 
     const isGameOver = () => board.isWon() || board.isFull();
@@ -100,9 +102,11 @@ const Controller = ((Data, UI) => {
   const DOM = UI.getDOMstrings();
 
   const setupGame = () => {
-    const p1Name = document.getElementById('player-x-name').value;
-    const p2Name = document.getElementById('player-o-name').value;
-    const game = Data.Game(Data.Board(), );
+    const pXName = document.getElementById('player-x-name').value;
+    const pOName = document.getElementById('player-o-name').value;
+    const playerX = Player(pXName, 'x');
+    const playerO = Player(pOName, 'o');
+    const game = Data.Game(Data.Board(), playerX, playerO);
   }
 
   return {
