@@ -52,23 +52,23 @@ const DataModule = (() => {
 
     const getActivePlayer = () => players[0];
 
-    const isGameOver = (bySymbol) => {
-      return board.isWon(bySymbol) || board.isFull()
+    const isGameOver = () => {
+      return board.isWon(getActivePlayer().getSymbol()) || board.isFull()
     };
 
-    const getWinner = () => board.isWon() && players[0];
+    const getWinner = () => {
+      return board.isWon(getActivePlayer().getSymbol()) && players[0];
+    };
 
     const turn = (position) => {
       if (!board.isEmptyCell(position)) return;
 
       board.markCell(position, getActivePlayer().getSymbol());
 
-      switchActivePlayer();
-
       return position;
     };
 
-    return {turn, isGameOver, getWinner, getActivePlayer};
+    return {turn, isGameOver, getWinner, getActivePlayer, switchActivePlayer};
   };
 
   return {Player, Board, Game};
@@ -81,17 +81,32 @@ const UIModule = (() => {
     playerXName: '#player-x-name',
     playerOName: '#player-o-name',
     board: '.board',
+    result: '.result',
     cell(n) { return `[data-cell="${n}"]`},
   };
+
+  const getDOMstrings = () => DOMstrings;
 
   const markPosition = (pos, symbol) => {
     const cell = document.querySelector(DOMstrings.cell(pos));
     cell.textContent = symbol;
   };
 
-  const getDOMstrings = () => DOMstrings;
+  const showResult = (player = null) => {
+    const resultNode = document.querySelector(DOMstrings.result);
+    console.log(player);
+    if (player) {
+      resultNode.innerHTML = `
+        <p class="result-msg">
+          ${player.getName()} with ${player.getSymbol()} has won!
+        </p>
+      `;
+    } else {
+      resultNode.innerHTML = `<p class="result-msg">DRAW!</p>`;
+    }
+  };
 
-  return {getDOMstrings, markPosition};
+  return {getDOMstrings, markPosition, showResult};
 })();
 
 const Controller = ((Data, UI) => {
@@ -107,18 +122,22 @@ const Controller = ((Data, UI) => {
     document.querySelector(DOM.board).addEventListener('click', e => {
       const clickedCell = +e.target.dataset.cell;
       const activePlayer = game.getActivePlayer();
+      const activeSymbol = activePlayer.getSymbol();
 
       if (clickedCell === undefined) return;
 
       const markedPosition = game.turn(clickedCell);
 
       if (markedPosition !== undefined) {
-        UI.markPosition(markedPosition, activePlayer.getSymbol());
+        UI.markPosition(markedPosition, activeSymbol);
       }
 
-      if (game.isGameOver(activePlayer.getSymbol())) {
-        console.log('game over');
+      if (game.isGameOver()) {
+        UI.showResult(game.getWinner());
+        return;
       }
+
+      game.switchActivePlayer();
     });
   }
 
