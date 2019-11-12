@@ -90,7 +90,7 @@ const UIModule = (() => {
 
   const markPosition = ({position, symbol}) => {
     const cell = document.querySelector(DOMstrings.cell(position));
-    cell.textContent = symbol;
+    drawOnCell(cell, symbol);
   };
 
   const showResult = (player = null) => {
@@ -105,6 +105,12 @@ const UIModule = (() => {
     } else {
       resultNode.innerHTML = `<p class="result-msg">DRAW!</p>`;
     }
+  };
+
+  const drawOnCell = (cell, symbol) => {
+    const ctx = cell.getContext('2d');
+    ctx.lineJoin = 'round';
+    ctx.lineCape = 'round';
   };
 
   return {getDOMstrings, markPosition, showResult};
