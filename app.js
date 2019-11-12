@@ -120,24 +120,28 @@ const Controller = ((Data, UI) => {
     const playerO = Data.Player(pOName, 'o');
     const game = Data.Game(Data.Board(), playerX, playerO);
 
-    document.querySelector(DOM.board).addEventListener('click', e => {
+    const boardNode = document.querySelector(DOM.board);
+
+    const runGame = (e) => {
       const clickedCell = +e.target.dataset.cell;
 
       if (clickedCell === undefined) return;
 
-      const markedPosition = game.turn(clickedCell);
+      const mark = game.turn(clickedCell);
 
-      if (markedPosition !== undefined) {
-        UI.markPosition(markedPosition);
+      if (mark !== undefined) {
+        UI.markPosition(mark);
       }
 
       if (game.isGameOver()) {
         UI.showResult(game.getWinner());
-        return;
+        boardNode.removeEventListener('click', runGame);
       }
 
       game.switchActivePlayer();
-    });
+    }
+
+    boardNode.addEventListener('click', runGame);
   }
 
   return {
