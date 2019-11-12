@@ -108,9 +108,39 @@ const UIModule = (() => {
   };
 
   const drawOnCell = (cell, symbol) => {
+    const w = cell.offsetWidth;
+    const h = cell.offsetHeight;
     const ctx = cell.getContext('2d');
+    cell.width = w;
+    cell.height = h;
     ctx.lineJoin = 'round';
-    ctx.lineCape = 'round';
+    ctx.lineCap = 'round';
+    ctx.lineWidth = 5;
+
+    if (symbol === 'x') {
+      ctx.strokeStyle = '#34495e';
+      drawX(ctx, w, h);
+    } else if (symbol === 'o') {
+      ctx.strokeStyle = '#f39c12';
+      drawO(ctx, w, h);
+    }
+  };
+
+  const drawX = (ctx, w, h) => {
+    ctx.beginPath();
+    ctx.moveTo(w / 4, h / 4);
+    ctx.lineTo(w - (w / 4), h - (h / 4));
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(w - (w / 4), h / 4);
+    ctx.lineTo(w / 4, h - (h / 4));
+    ctx.stroke();
+  };
+
+  const drawO = (ctx, w, h) => {
+    ctx.beginPath();
+    ctx.arc(w / 2, h / 2, w / 4, 0, 2 * Math.PI);
+    ctx.stroke();
   };
 
   return {getDOMstrings, markPosition, showResult};
