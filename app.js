@@ -98,6 +98,7 @@ const UIModule = (() => {
     playerOName: '#player-o-name',
     board: '.board',
     result: '.result',
+    generalCell: '.cell',
     cell(n) { return `[data-cell="${n}"]`},
   };
 
@@ -161,17 +162,28 @@ const UIModule = (() => {
   const showWinCombo = (combo) => {
     for (let c of combo) {
       const el = document.querySelector(DOMstrings.cell(c));
-      el.style.background = '#2ecc71';
+      el.style.background = '#1abc9c';
     }
   };
 
-  return {getDOMstrings, markPosition, showResult, showWinCombo};
+  const clearBoard = () => {
+    const cells = document.querySelectorAll(DOMstrings.generalCell);
+
+    for (let c of cells) {
+      const ctx = c.getContext('2d');
+      ctx.clearRect(0, 0, c.width, c.height);
+      c.style.background = '#fff';
+    }
+  };
+
+  return {getDOMstrings, markPosition, showResult, showWinCombo, clearBoard};
 })();
 
 const Controller = ((Data, UI) => {
   const DOM = UI.getDOMstrings();
 
   const setupGame = () => {
+    resetGame();
     const pXName = document.querySelector(DOM.playerXName).value;
     const pOName = document.querySelector(DOM.playerOName).value;
     const playerX = Data.Player(pXName, 'x');
@@ -202,6 +214,10 @@ const Controller = ((Data, UI) => {
 
     boardNode.addEventListener('click', runGame);
   }
+
+  const resetGame = () => {
+    UI.clearBoard();
+  };
 
   return {
     init() {
