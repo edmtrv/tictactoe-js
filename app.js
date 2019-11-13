@@ -25,6 +25,16 @@ const DataModule = (() => {
       return positions;
     };
 
+    const getWinCombo = (symbol) => {
+      const positions = positionsBySymbol(symbol);
+
+      for (let combo of winCombos) {
+        if (combo.every(c => positions.includes(c))) {
+          return combo;
+        }
+      }
+    };
+
     const isFull = () => !grid.some(pos => pos === null);
 
     const isWon = (currentSymbol) => {
@@ -44,7 +54,7 @@ const DataModule = (() => {
 
     const isEmptyCell = (pos) => !grid[pos];
 
-    return {markCell, isEmptyCell, isFull, isWon};
+    return {markCell, isEmptyCell, isFull, isWon, getWinCombo};
   };
 
   const Game = (board, ...players) => {
@@ -60,6 +70,8 @@ const DataModule = (() => {
       return board.isWon(getActivePlayer().getSymbol()) && players[0];
     };
 
+    const getWinCombo = () => board.getWinCombo(getWinner().getSymbol());
+
     const turn = (position) => {
       if (!board.isEmptyCell(position)) return;
       const symbol = getActivePlayer().getSymbol();
@@ -69,7 +81,10 @@ const DataModule = (() => {
       return {position, symbol};
     };
 
-    return {turn, isGameOver, getWinner, getActivePlayer, switchActivePlayer};
+    return {
+      turn, isGameOver, getWinner,
+      getActivePlayer, switchActivePlayer, getWinCombo
+    };
   };
 
   return {Player, Board, Game};
@@ -90,7 +105,7 @@ const UIModule = (() => {
 
   const markPosition = ({position, symbol}) => {
     const cell = document.querySelector(DOMstrings.cell(position));
-    drawOnCell(cell, symbol);
+    drawSymbol(cell, symbol);
   };
 
   const showResult = (player = null) => {
@@ -107,7 +122,7 @@ const UIModule = (() => {
     }
   };
 
-  const drawOnCell = (cell, symbol) => {
+  const drawSymbol = (cell, symbol) => {
     const w = cell.offsetWidth;
     const h = cell.offsetHeight;
     const ctx = cell.getContext('2d');
@@ -143,7 +158,14 @@ const UIModule = (() => {
     ctx.stroke();
   };
 
-  return {getDOMstrings, markPosition, showResult};
+  const showWinCombo = (combo) => {
+    for (let c of combo) {
+      const el = document.querySelector(DOMstrings.cell(c));
+      el.style.background = '#2ecc71';
+    }
+  };
+
+  return {getDOMstrings, markPosition, showResult, showWinCombo};
 })();
 
 const Controller = ((Data, UI) => {
@@ -170,6 +192,7 @@ const Controller = ((Data, UI) => {
       }
 
       if (game.isGameOver()) {
+        UI.showWinCombo(game.getWinCombo());
         UI.showResult(game.getWinner());
         boardNode.removeEventListener('click', runGame);
       }
