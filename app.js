@@ -162,7 +162,7 @@ const UIModule = (() => {
   const showWinCombo = (combo) => {
     for (let c of combo) {
       const el = document.querySelector(DOMstrings.cell(c));
-      el.style.background = '#1abc9c';
+      el.style.background = '#2ecc71';
     }
   };
 
