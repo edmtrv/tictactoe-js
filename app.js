@@ -203,14 +203,16 @@ const Controller = ((Data, UI) => {
         UI.markPosition(mark);
 
         if (game.isGameOver()) {
-          UI.showWinCombo(game.getWinCombo());
-          UI.showResult(game.getWinner());
+          const winner = game.getWinner();
+          if (winner) {
+            UI.showWinCombo(game.getWinCombo());
+          }
+          UI.showResult(winner);
           boardNode.removeEventListener('click', runGame);
         }
 
         game.switchActivePlayer();
       }
-
     }
 
     boardNode.addEventListener('click', runGame);
