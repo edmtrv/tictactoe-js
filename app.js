@@ -115,7 +115,7 @@ const UIModule = (() => {
     if (player) {
       resultNode.innerHTML = `
         <p class="result-msg">
-          ${player.getName()} with ${player.getSymbol()} has won!
+          ${player.getName()} has won!
         </p>
       `;
     } else {
@@ -137,7 +137,7 @@ const UIModule = (() => {
       ctx.strokeStyle = '#34495e';
       drawX(ctx, w, h);
     } else if (symbol === 'o') {
-      ctx.strokeStyle = '#f39c12';
+      ctx.strokeStyle = '#1abc9c';
       drawO(ctx, w, h);
     }
   };
@@ -162,7 +162,7 @@ const UIModule = (() => {
   const showWinCombo = (combo) => {
     for (let c of combo) {
       const el = document.querySelector(DOMstrings.cell(c));
-      el.style.background = '#2ecc71';
+      el.style.background = '#e67e22';
     }
   };
 
