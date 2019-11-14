@@ -7,6 +7,7 @@
 html,
 body {
   font-size: 10px;
+  font-family: 'Lato', sans-serif;
   color: rgb(37, 37, 37);
 }
 
@@ -24,17 +25,18 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: 20px;
-  background: #fff;
+  padding: 30px;
+  background-color: #fff;
   border-radius: 1%;
-  box-shadow: 0px 5px 10px 1px rgb(175, 175, 175);
+  box-shadow: 2px 5px 15px 1px rgb(175, 175, 175);
+  font-size: 1.5em;
 }
 
 .details {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding-right: 20px;
+  justify-content: flex-start;
+  padding-right: 30px;
 }
 
 .board {
@@ -44,9 +46,52 @@ body {
   height: 300px;
 }
 
+.players {
+  padding-bottom: 30px;
+}
+
+.result {
+  padding-top: 30px;
+  font-size: 1.5em;
+}
+
 .cell {
-  background: #f3f3f3;
+  background-color: #f3f3f3;
   width: 100px;
   height: 100px;
   border: 1px solid #222;
+}
+
+label {
+  display: inline-block;
+  width: 70px;
+
+}
+
+input {
+  margin-bottom: 10px;
+  padding: 5px;
+  outline-color: #e67e22;
+}
+
+button {
+  font-size: 2em;
+  font-family: 'Lato', sans-serif;
+  padding: 5px;
+  background-color:#e67e22;
+  color: #fff;
+  border-radius: 2%;
+  border: 1px solid  #e67e22;
+  box-shadow: 2px 5px 15px 1px rgb(175, 175, 175);
+  outline: none;
+  transition: background-color 0.2s, border 0.2s, box-shadow 0.2s;
+}
+
+button:hover {
+  background-color: #cf6d17;
+  border: 1px solid  #cf6d17;
+}
+
+button:active {
+  box-shadow: 0px 2px 5px 1px rgb(175, 175, 175);
 }
