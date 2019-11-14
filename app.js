@@ -114,12 +114,12 @@ const UIModule = (() => {
 
     if (player) {
       resultNode.innerHTML = `
-        <p class="result-msg">
+        <p style="color: ${player.getSymbol() == 'x' ? '#34495e' : '#1abc9c'}">
           ${player.getName()} has won!
         </p>
       `;
     } else {
-      resultNode.innerHTML = `<p class="result-msg">DRAW!</p>`;
+      resultNode.innerHTML = `<p style="color: #e67e22">DRAW!</p>`;
     }
   };
 
